@@ -56,7 +56,7 @@ const addProperty = async (req, res) => {
         // // Se agrega el elemento al objeto
          property.idTipoPropiedad = id_TipoPropiedad;
         await pool.query("INSERT INTO Propiedad SET ?", property);
-        await pool.query('COMMIT');
+        await pool.query('commit');
         await pool.release();
           
 
