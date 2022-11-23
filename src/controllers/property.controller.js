@@ -105,7 +105,7 @@ const getProperty= async (req, res) => {
 
 const updateProperty = async (req, res) => {
     const connection = await getConnection();
-    await connection.beginTransaction();
+    await pool.query('start transaction')
     try {
    
         var typeProperty = {
@@ -151,7 +151,7 @@ const updateProperty = async (req, res) => {
             
             await connection.query("UPDATE TipoPropiedad SET ? WHERE idTipoPropiedad = ?", [typeProperty, req.body.idTipoPropiedad]);
             await connection.query("UPDATE Propiedad SET ? WHERE idPropiedad = ?", [property, property.idPropiedad]);
-            await connection.commit();
+            await pool.query('commit')
                 
         }
      
@@ -163,7 +163,7 @@ const updateProperty = async (req, res) => {
         
         
     } catch (error) {
-        await connection.rollback();
+        await pool.query('rollback')
         res.status(500);
         res.send({status: 500, message: error.message});
     }
@@ -174,7 +174,7 @@ const updateProperty = async (req, res) => {
 const updateUserProperty = async (req, res) => {
     const connection = await getConnection();
     var idUsuario= req.body.idUsuario;
-    await connection.beginTransaction();
+    await pool.query('start transaction')
     try {
    
         var typeProperty = {
@@ -227,7 +227,7 @@ const updateUserProperty = async (req, res) => {
             
             await connection.query("UPDATE TipoPropiedad SET ? WHERE idTipoPropiedad = ?", [typeProperty, req.body.idTipoPropiedad]);
             await connection.query("UPDATE Propiedad SET ? WHERE IdUsuario = ? AND idPropiedad = ?", [property,idUsuario, property.idPropiedad]);
-            await connection.commit();
+            await pool.query('commit')
                 
         }
      
@@ -239,7 +239,7 @@ const updateUserProperty = async (req, res) => {
         
         
     } catch (error) {
-        await connection.rollback();
+       await pool.query('rollback')
         res.status(500);
         res.send({status: 500, message: error.message});
     }
