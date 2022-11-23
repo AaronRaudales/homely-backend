@@ -105,7 +105,7 @@ const getProperty= async (req, res) => {
 
 const updateProperty = async (req, res) => {
     const connection = await getConnection();
-    await pool.query('start transaction')
+    await connection.beginTransaction();
     try {
    
         var typeProperty = {
@@ -151,7 +151,7 @@ const updateProperty = async (req, res) => {
             
             await connection.query("UPDATE TipoPropiedad SET ? WHERE idTipoPropiedad = ?", [typeProperty, req.body.idTipoPropiedad]);
             await connection.query("UPDATE Propiedad SET ? WHERE idPropiedad = ?", [property, property.idPropiedad]);
-           await pool.query('commit');
+            await connection.commit();
                 
         }
      
@@ -163,7 +163,7 @@ const updateProperty = async (req, res) => {
         
         
     } catch (error) {
-        await pool.query('rollback');
+        await connection.rollback();
         res.status(500);
         res.send({status: 500, message: error.message});
     }
@@ -174,7 +174,7 @@ const updateProperty = async (req, res) => {
 const updateUserProperty = async (req, res) => {
     const connection = await getConnection();
     var idUsuario= req.body.idUsuario;
-    await pool.query('start transaction')
+    await connection.beginTransaction();
     try {
    
         var typeProperty = {
@@ -227,7 +227,7 @@ const updateUserProperty = async (req, res) => {
             
             await connection.query("UPDATE TipoPropiedad SET ? WHERE idTipoPropiedad = ?", [typeProperty, req.body.idTipoPropiedad]);
             await connection.query("UPDATE Propiedad SET ? WHERE IdUsuario = ? AND idPropiedad = ?", [property,idUsuario, property.idPropiedad]);
-           await pool.query('commit');
+            await connection.commit();
                 
         }
      
@@ -239,7 +239,7 @@ const updateUserProperty = async (req, res) => {
         
         
     } catch (error) {
-        await pool.query('rollback');
+        await connection.rollback();
         res.status(500);
         res.send({status: 500, message: error.message});
     }
@@ -249,7 +249,7 @@ const updateUserProperty = async (req, res) => {
 
 const deleteProperty = async (req, res) => {
     const connection = await getConnection();
-    await pool.query('start transaction')
+    await connection.beginTransaction();
     try {
         const { idPropiedad } = req.params;
         //const connection = await getConnection();
@@ -268,7 +268,7 @@ const deleteProperty = async (req, res) => {
 
             await connection.query("DELETE FROM Propiedad WHERE idPropiedad = ?",[idPropiedad]);
             await connection.query("DELETE FROM TipoPropiedad WHERE idTipoPropiedad = ?",[Id_Tipo_Propiedad]);
-            await pool.query('commit');
+            await connection.commit();
         } 
 
         var resultado={
@@ -278,7 +278,7 @@ const deleteProperty = async (req, res) => {
             res.status(status).json(resultado);
 
     } catch (error) {
-        await pool.query('rollback');
+        await connection.rollback()
         res.status(500);
         res.send({status: 500, message: error.message});
     }
