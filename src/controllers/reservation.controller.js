@@ -4,7 +4,7 @@ const mailSender = require('../lib/mailSender')
 
 const addReservation = async (req, res) => {
     const pool = await getConnection();
-    await pool.beginTransaction();
+    await pool.query('start transaction');
     try {
         var reservation = {
             idUsuario : req.body.idUsuario,
@@ -120,7 +120,7 @@ const addReservation = async (req, res) => {
 
         //CAMBIAR ESTADO DE LA PROPIEDAD A RESERVADA
         await pool.query("UPDATE Propiedad SET reservacion=0 WHERE idPropiedad = ?", [reservation.idPropiedad]);
-        await pool.commit();
+        await pool.query('commit');
        // var message="Reservacion agregada con exito!";
 
         let client = await pool.query('SELECT * FROM usuarios WHERE idUsuario = ?' , [reservation.idUsuario]);
@@ -159,7 +159,7 @@ const addReservation = async (req, res) => {
             return;
 
     } catch (error) {
-        await pool.rollback();
+        await pool.query('rollback');
         
         /*const errorEmailData = {
             correoElectronico : client[0].correoElectronico,
