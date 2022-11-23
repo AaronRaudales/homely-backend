@@ -31,12 +31,12 @@ app.use('/upload', express.static('upload/images/profilePicture'));
 app.use('/upload', express.static('upload/images/property'));
 
 // Routes
-app.use("/signup", signupRoutes);
-app.use("/login", signInRoutes);
-app.use("/forgot-password",forgotPasswordRoutes);
-app.use("/profile", profileRoutes);
-app.use("/api/propiedades", propertyRoutes);
-app.use("/api/propiedades/filtros", filterRoutes);
-app.use("/reservation", reservationRoutes);
+app.use("https://homely-back.herokuapp.com//signup", signupRoutes);
+app.use("https://homely-back.herokuapp.com//login", signInRoutes);
+app.use("https://homely-back.herokuapp.com//forgot-password",forgotPasswordRoutes);
+app.use("https://homely-back.herokuapp.com//profile", profileRoutes);
+app.use("https://homely-back.herokuapp.com//api/propiedades", propertyRoutes);
+app.use("https://homely-back.herokuapp.com//api/propiedades/filtros", filterRoutes);
+app.use("https://homely-back.herokuapp.com//reservation", reservationRoutes);
 
 export default app;
