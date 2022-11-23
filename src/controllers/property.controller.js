@@ -3,7 +3,7 @@ import { getConnection } from "./../database/database";
 
 const addProperty = async (req, res) => {
     const pool = await getConnection();
-    await pool.query('begin transaction')
+    await pool.query('start transaction')
     try {
         var typeProperty = {
             tipoPropiedad : req.body.tipoPropiedad,
