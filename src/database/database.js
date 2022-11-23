@@ -9,6 +9,9 @@ const connection = mysql.createPool({
     password: '8a6898cf'
 });
 
+const getConnection = () => {
+    return connection;
+};
 
 module.exports = {
     getConnection
