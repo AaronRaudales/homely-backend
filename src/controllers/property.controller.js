@@ -3,7 +3,7 @@ import { getConnection } from "./../database/database";
 
 const addProperty = async (req, res) => {
     const pool = await getConnection();
-    await pool.beginTransaction();
+    await pool.query('BEGIN TRANSACTION')
     try {
         var typeProperty = {
             tipoPropiedad : req.body.tipoPropiedad,
@@ -56,6 +56,7 @@ const addProperty = async (req, res) => {
         // // Se agrega el elemento al objeto
          property.idTipoPropiedad = id_TipoPropiedad;
         await pool.query("INSERT INTO Propiedad SET ?", property);
+        await pool.query('COMMIT');
         await pool.commit();
           
 
