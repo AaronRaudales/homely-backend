@@ -57,7 +57,7 @@ const addProperty = async (req, res) => {
          property.idTipoPropiedad = id_TipoPropiedad;
         await pool.query("INSERT INTO Propiedad SET ?", property);
         await pool.query('commit');
-        await pool.release();
+        
           
 
         var resultado={
@@ -65,6 +65,7 @@ const addProperty = async (req, res) => {
             message: message
             }
             res.status(status).json(resultado);
+            await pool.release();
             return;
 
     } catch (error) {
