@@ -1,7 +1,7 @@
 import mysql from "promise-mysql";
 
 
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
     host: 'us-cdbr-east-06.cleardb.net',
     database: 'heroku_834748982488d10',
     user: 'b94b81efa9bac6',
