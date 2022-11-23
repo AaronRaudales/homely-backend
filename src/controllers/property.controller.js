@@ -105,7 +105,7 @@ const getProperty= async (req, res) => {
 
 const updateProperty = async (req, res) => {
     const connection = await getConnection();
-    await connection.beginTransaction();
+    await pool.query('start transaction')
     try {
    
         var typeProperty = {
@@ -174,7 +174,7 @@ const updateProperty = async (req, res) => {
 const updateUserProperty = async (req, res) => {
     const connection = await getConnection();
     var idUsuario= req.body.idUsuario;
-    await connection.beginTransaction();
+    await pool.query('start transaction')
     try {
    
         var typeProperty = {
@@ -249,7 +249,7 @@ const updateUserProperty = async (req, res) => {
 
 const deleteProperty = async (req, res) => {
     const connection = await getConnection();
-    await connection.beginTransaction();
+    await pool.query('start transaction')
     try {
         const { idPropiedad } = req.params;
         //const connection = await getConnection();
