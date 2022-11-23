@@ -69,7 +69,7 @@ const addProperty = async (req, res) => {
 
     } catch (error) {
         const pool = await getConnection();
-        await pool.rollback();
+        await pool.query('rollback');
         res.status(500);
         res.send({status: 500, message: error.message});
         //await pool.rollback();
