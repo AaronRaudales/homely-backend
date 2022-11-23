@@ -151,7 +151,7 @@ const updateProperty = async (req, res) => {
             
             await connection.query("UPDATE TipoPropiedad SET ? WHERE idTipoPropiedad = ?", [typeProperty, req.body.idTipoPropiedad]);
             await connection.query("UPDATE Propiedad SET ? WHERE idPropiedad = ?", [property, property.idPropiedad]);
-            await connection.commit();
+           await pool.query('commit');
                 
         }
      
@@ -227,7 +227,7 @@ const updateUserProperty = async (req, res) => {
             
             await connection.query("UPDATE TipoPropiedad SET ? WHERE idTipoPropiedad = ?", [typeProperty, req.body.idTipoPropiedad]);
             await connection.query("UPDATE Propiedad SET ? WHERE IdUsuario = ? AND idPropiedad = ?", [property,idUsuario, property.idPropiedad]);
-            await connection.commit();
+           await pool.query('commit');
                 
         }
      
@@ -268,7 +268,7 @@ const deleteProperty = async (req, res) => {
 
             await connection.query("DELETE FROM Propiedad WHERE idPropiedad = ?",[idPropiedad]);
             await connection.query("DELETE FROM TipoPropiedad WHERE idTipoPropiedad = ?",[Id_Tipo_Propiedad]);
-            await connection.commit();
+            await pool.query('commit');
         } 
 
         var resultado={
