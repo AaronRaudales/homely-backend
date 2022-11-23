@@ -163,7 +163,7 @@ const updateProperty = async (req, res) => {
         
         
     } catch (error) {
-        await connection.rollback();
+        await pool.query('rollback');
         res.status(500);
         res.send({status: 500, message: error.message});
     }
@@ -239,7 +239,7 @@ const updateUserProperty = async (req, res) => {
         
         
     } catch (error) {
-        await connection.rollback();
+        await pool.query('rollback');
         res.status(500);
         res.send({status: 500, message: error.message});
     }
@@ -278,7 +278,7 @@ const deleteProperty = async (req, res) => {
             res.status(status).json(resultado);
 
     } catch (error) {
-        await connection.rollback()
+        await pool.query('rollback');
         res.status(500);
         res.send({status: 500, message: error.message});
     }
