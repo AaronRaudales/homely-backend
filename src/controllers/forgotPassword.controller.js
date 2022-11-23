@@ -37,7 +37,7 @@ const forgotPassword = async (req, res) => {
             status : 200,
             message : "Autenticación correcta, el link de restauración será enviado a su correo. Por favor, revisarlo."
         }
-        const link = `http://localhost:4200/auth/change-password-v2/${data[0].idUsuario}/${token}`;
+        const link = `homely-ing-software.netlify.app/auth/change-password-v2/${data[0].idUsuario}/${token}`;
         const emailData = {
             correoElectronico : data[0].correoElectronico,
             nombreUsuario : data[0].nombreUsuario,
